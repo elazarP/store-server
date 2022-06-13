@@ -9,6 +9,7 @@ app.get('/read',async(req,res)=>{
         res.send(list)
     } catch (error) {
         res.status(400).send(error)
+        console.log(error);
     }
 })
 

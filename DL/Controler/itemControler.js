@@ -3,10 +3,15 @@ require('../../db')
 const itemModel = require('../Models/item')
 
 async function read(filter={}){
-    let res = await itemModel.find({isActiv:true})
+    let res = await itemModel.find({isActiv:true})//.populate({path:'categorys'})
     console.log(res);
     return res
 }
+async function chack (){
+    let res = await itemModel.findById("62a5520cad2a425823917c4d").populate({path:'categorys'})
+    console.log(res);
+}
+//chack()
 
 async function readOne(filter={}){
     let res= await itemModel.find({...filter,isActiv:true})
@@ -71,11 +76,11 @@ let newArr=list.map(v=>{
         categoryId:cat.find(p=>p.categoryName == v.category)._id
     }
 })
+
 // console.log(newArr)
 // newArr.forEach(v=>create(v))
 async function insert(){
     await itemModel.insertMany(newArr)
 }
-
 
 module.exports={read,readOne,create,findID,deleteOne,findByIdAndUppdata}
